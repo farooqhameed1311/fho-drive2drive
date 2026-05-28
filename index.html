@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <head>
-  <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1' name='viewport'/>
-  <title>Drive2Drive Pro</title>
+  <title><data:blog.title/></title>
   <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'/>
   <style>
     /* ===== PREMIUM ROOT VARIABLES (Dynamic via JS) ===== */
@@ -570,7 +569,7 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbylFWt10eA9JQjzz5mTqjCBs7SgcmbjlJqGGnlmDZ0TS6DfsL50ywwkFms32eZ7vq-v/exec";
+    const GAS_URL = "/api/transfer";
     const ADMIN_EMAILS = ["farooq.hameed1311@gmail.com", "farooqhameedkhan2006@gmail.com"];
     
     // GLOBAL STATE
