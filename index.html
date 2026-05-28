@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1' name='viewport'/>
-  <title><data:blog.title/></title>
+  <title>Drive2Drive Pro</title>
   <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'/>
-  <b:skin><![CDATA[
+  <style>
     /* ===== PREMIUM ROOT VARIABLES (Dynamic via JS) ===== */
     :root {
       --primary: #00f2fe;
@@ -205,17 +205,17 @@
        .flex-between { flex-direction: column; align-items: center; text-align: center; }
        .admin-grid { grid-template-columns: 1fr; }
     }
-  ]]></b:skin>
+  </style>
 </head>
 <body>
 
   <div id='app-loader'>
-      <div class='spinner'/>
+      <div class='spinner'></div>
       <h2 style='color: var(--primary); font-weight: 800; letter-spacing: 1px;'>Drive2Drive <span style='color: #fff;'>Pro</span></h2>
       <p style='color: var(--text-muted); margin-top: 10px;'>Authenticating Secure Connection...</p>
   </div>
 
-  <div id='global-alert'/>
+  <div id='global-alert'></div>
 
   <header>
     <div class='brand'>
@@ -223,24 +223,24 @@
         Drive2Drive Pro
     </div>
     <nav class='hidden' id='auth-nav'>
-       <button class='btn-glow' id='nav-login'><i class='fa-brands fa-google'/> Sign In</button>
+       <button class='btn-glow' id='nav-login'><i class='fa-brands fa-google'></i> Sign In</button>
        <div class='hidden' id='user-nav'>
-          <button id='nav-app'><i class='fa-solid fa-cloud-arrow-up'/> Engine</button>
-          <button id='nav-pricing'><i class='fa-solid fa-tags'/> Pricing</button>
-          <button id='nav-manual'><i class='fa-solid fa-book-open'/> Guide</button>
-          <button class='hidden' id='nav-admin' style='color: var(--danger); text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); border: 1px solid var(--danger);'><i class='fa-solid fa-shield-halved'/> Admin</button>
-          <button class='btn-glow' id='nav-dashboard'><i class='fa-solid fa-user'/> Dashboard</button>
+          <button id='nav-app'><i class='fa-solid fa-cloud-arrow-up'></i> Engine</button>
+          <button id='nav-pricing'><i class='fa-solid fa-tags'></i> Pricing</button>
+          <button id='nav-manual'><i class='fa-solid fa-book-open'></i> Guide</button>
+          <button class='hidden' id='nav-admin' style='color: var(--danger); text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); border: 1px solid var(--danger);'><i class='fa-solid fa-shield-halved'></i> Admin</button>
+          <button class='btn-glow' id='nav-dashboard'><i class='fa-solid fa-user'></i> Dashboard</button>
        </div>
     </nav>
   </header>
 
   <main>
     <div class='view glass-panel' id='view-login' style='max-width: 500px; margin: 8vh auto; text-align: center;'>
-       <div style='font-size: 4.5rem; color: var(--primary); margin-bottom: 25px; filter: drop-shadow(0 0 20px var(--primary-glow));'><i class='fa-solid fa-fingerprint'/></div>
+       <div style='font-size: 4.5rem; color: var(--primary); margin-bottom: 25px; filter: drop-shadow(0 0 20px var(--primary-glow));'><i class='fa-solid fa-fingerprint'></i></div>
        <h2 style='font-size: 2.2rem; font-weight: 900; margin-bottom: 10px;'>Secure Access</h2>
        <p class='mb-2 text-muted' style='font-size: 1.1rem;'>Enterprise-grade cloud and local data transfers.</p>
-       <div class='credit-tag' style='margin-top: 10px;'><i class='fa-solid fa-gift'/> 50 Free Credits on Signup!</div>
-       <button class='submit-btn' id='btn-main-login' style='margin-top: 15px;'><i class='fa-brands fa-google'/> Continue with Google</button>
+       <div class='credit-tag' style='margin-top: 10px;'><i class='fa-solid fa-gift'></i> 50 Free Credits on Signup!</div>
+       <button class='submit-btn' id='btn-main-login' style='margin-top: 15px;'><i class='fa-brands fa-google'></i> Continue with Google</button>
     </div>
 
     <div class='view' id='view-manual'>
@@ -250,20 +250,20 @@
        </div>
 
        <div class='glass-panel' style='max-width: 800px; margin: 0 auto;'>
-           <h3 style='margin-bottom: 20px; color: var(--text-main); font-size: 1.5rem;'><i class='fa-solid fa-cloud' style='color: var(--primary);'/> Cloud to Cloud Transfers</h3>
+           <h3 style='margin-bottom: 20px; color: var(--text-main); font-size: 1.5rem;'><i class='fa-solid fa-cloud' style='color: var(--primary);'></i> Cloud to Cloud Transfers</h3>
            <div class='manual-step'>
                <h3><span>1</span> Get the Source Link</h3>
-               <p>Go to your Google Drive, right-click the file or folder you want to transfer, click &quot;Share&quot;, and ensure General Access is set to <strong>&quot;Anyone with the link&quot;</strong>. Copy that link.</p>
+               <p>Go to your Google Drive, right-click the file or folder you want to transfer, click "Share", and ensure General Access is set to <strong>"Anyone with the link"</strong>. Copy that link.</p>
            </div>
            <div class='manual-step'>
                <h3><span>2</span> Set the Destination (Optional)</h3>
                <p>If you want the file saved in a specific folder, get the share link for that target folder (ensure it is set to Editor). If you leave this blank, the file will be saved securely to our root server and a direct download link will be provided to you instantly.</p>
            </div>
 
-           <h3 style='margin-top: 40px; margin-bottom: 20px; color: var(--text-main); font-size: 1.5rem;'><i class='fa-solid fa-laptop' style='color: var(--secondary);'/> Device Uploads</h3>
+           <h3 style='margin-top: 40px; margin-bottom: 20px; color: var(--text-main); font-size: 1.5rem;'><i class='fa-solid fa-laptop' style='color: var(--secondary);'></i> Device Uploads</h3>
            <div class='manual-step'>
                <h3><span>1</span> Select Your File</h3>
-               <p>Toggle to the &quot;Device Upload&quot; tab in the engine. Click the upload zone to browse your computer or mobile device, or simply drag and drop the file into the box.</p>
+               <p>Toggle to the "Device Upload" tab in the engine. Click the upload zone to browse your computer or mobile device, or simply drag and drop the file into the box.</p>
            </div>
            <div class='manual-step'>
                <h3><span>2</span> Wait for Encryption</h3>
@@ -285,10 +285,10 @@
            </div>
            <select class='currency-selector' id='currency-select'>
                <option value='USD'>USD ($)</option>
-               <option value='PKR'>PKR (&#8360;)</option>
-               <option value='EUR'>EUR (&#8364;)</option>
-               <option value='GBP'>GBP (&#163;)</option>
-               <option value='INR'>INR (&#8377;)</option>
+               <option value='PKR'>PKR (₨)</option>
+               <option value='EUR'>EUR (€)</option>
+               <option value='GBP'>GBP (£)</option>
+               <option value='INR'>INR (₹)</option>
            </select>
        </div>
 
@@ -297,33 +297,33 @@
              <h3>Basic</h3>
              <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-mo-basic'>--</span><span>/mo</span></div>
              <ul>
-                <li><i class='fa-solid fa-coins'/> <span id='cred-mo-basic'>--</span> Credits</li>
-               	<li><i class='fa-solid fa-recycle'/> 10 Transfers</li>
-                <li><i class='fa-solid fa-exchange-alt'/> Standard Allocation</li>
-                <li><i class='fa-solid fa-gauge-high'/> Base Speed</li>
+                <li><i class='fa-solid fa-coins'></i> <span id='cred-mo-basic'>--</span> Credits</li>
+                <li><i class='fa-solid fa-recycle'></i> 10 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'></i> Standard Allocation</li>
+                <li><i class='fa-solid fa-gauge-high'></i> Base Speed</li>
              </ul>
-             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Monthly Basic&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+             <a class='wa-btn text-center' href='#' onclick='checkout("Monthly Basic")'><i class='fa-brands fa-whatsapp'></i> Get Started</a>
           </div>
           <div class='glass-panel price-card featured'>
              <h3 style='color: var(--primary);'>Pro</h3>
              <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-mo-pro'>--</span><span>/mo</span></div>
              <ul>
-                <li><i class='fa-solid fa-coins'/> <span id='cred-mo-pro'>--</span> Credits</li>
-               	<li><i class='fa-solid fa-recycle'/> 50 Transfers</li>
-                <li><i class='fa-solid fa-exchange-alt'/> High Allocation</li>
-                <li><i class='fa-solid fa-rocket'/> Max Speed API</li>
+                <li><i class='fa-solid fa-coins'></i> <span id='cred-mo-pro'>--</span> Credits</li>
+                <li><i class='fa-solid fa-recycle'></i> 50 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'></i> High Allocation</li>
+                <li><i class='fa-solid fa-rocket'></i> Max Speed API</li>
              </ul>
-             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Monthly Pro&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+             <a class='wa-btn text-center' href='#' onclick='checkout("Monthly Pro")'><i class='fa-brands fa-whatsapp'></i> Get Started</a>
           </div>
           <div class='glass-panel price-card'>
              <h3>Ultra</h3>
              <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-mo-ultra'>--</span><span>/mo</span></div>
              <ul>
-                <li><i class='fa-solid fa-infinity'/> Unlimited Credits</li>
-                <li><i class='fa-solid fa-infinity'/> Unlimited Transfers</li>
-                <li><i class='fa-solid fa-headset'/> Priority Support</li>
+                <li><i class='fa-solid fa-infinity'></i> Unlimited Credits</li>
+                <li><i class='fa-solid fa-infinity'></i> Unlimited Transfers</li>
+                <li><i class='fa-solid fa-headset'></i> Priority Support</li>
              </ul>
-             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Monthly Ultra&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+             <a class='wa-btn text-center' href='#' onclick='checkout("Monthly Ultra")'><i class='fa-brands fa-whatsapp'></i> Get Started</a>
           </div>
        </div>
 
@@ -332,41 +332,41 @@
              <h3>Yearly Basic</h3>
              <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-yr-basic'>--</span><span>/yr</span></div>
              <ul>
-                <li><i class='fa-solid fa-coins'/> <span id='cred-yr-basic'>--</span> Credits</li>
-               	<li><i class='fa-solid fa-recycle'/> 200 Transfers</li>
-                <li><i class='fa-solid fa-exchange-alt'/> Standard Allocation</li>
-                <li><i class='fa-solid fa-gauge-high'/> Base Speed</li>
+                <li><i class='fa-solid fa-coins'></i> <span id='cred-yr-basic'>--</span> Credits</li>
+                <li><i class='fa-solid fa-recycle'></i> 200 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'></i> Standard Allocation</li>
+                <li><i class='fa-solid fa-gauge-high'></i> Base Speed</li>
              </ul>
-             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Yearly Basic&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+             <a class='wa-btn text-center' href='#' onclick='checkout("Yearly Basic")'><i class='fa-brands fa-whatsapp'></i> Get Started</a>
           </div>
           <div class='glass-panel price-card featured'>
              <h3 style='color: var(--primary);'>Yearly Pro</h3>
              <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-yr-pro'>--</span><span>/yr</span></div>
              <ul>
-                <li><i class='fa-solid fa-coins'/> <span id='cred-yr-pro'>--</span> Credits</li>
-               <li><i class='fa-solid fa-recycle'/> 600 Transfers</li>
-                <li><i class='fa-solid fa-exchange-alt'/> High Allocation</li>
-                <li><i class='fa-solid fa-rocket'/> Max Speed API</li>
+                <li><i class='fa-solid fa-coins'></i> <span id='cred-yr-pro'>--</span> Credits</li>
+               <li><i class='fa-solid fa-recycle'></i> 600 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'></i> High Allocation</li>
+                <li><i class='fa-solid fa-rocket'></i> Max Speed API</li>
              </ul>
-             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Yearly Pro&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+             <a class='wa-btn text-center' href='#' onclick='checkout("Yearly Pro")'><i class='fa-brands fa-whatsapp'></i> Get Started</a>
           </div>
           <div class='glass-panel price-card'>
              <h3>Yearly Ultra</h3>
              <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-yr-ultra'>--</span><span>/yr</span></div>
              <ul>
-                <li><i class='fa-solid fa-infinity'/> Unlimited Credits</li>
-                <li><i class='fa-solid fa-infinity'/> Unlimited Transfers</li>
-                <li><i class='fa-solid fa-crown'/> VIP Support</li>
+                <li><i class='fa-solid fa-infinity'></i> Unlimited Credits</li>
+                <li><i class='fa-solid fa-infinity'></i> Unlimited Transfers</li>
+                <li><i class='fa-solid fa-crown'></i> VIP Support</li>
              </ul>
-             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Yearly Ultra&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+             <a class='wa-btn text-center' href='#' onclick='checkout("Yearly Ultra")'><i class='fa-brands fa-whatsapp'></i> Get Started</a>
           </div>
        </div>
     </div>
 
     <div class='view glass-panel' id='view-dashboard' style='max-width: 750px; margin: 0 auto;'>
        <div class='flex-between mb-2'>
-           <h2 style='font-size: 2rem;'><i class='fa-solid fa-circle-user'/> Dashboard</h2>
-           <button id='nav-logout' onmouseout='this.style.background=&quot;transparent&quot;; this.style.color=&quot;var(--danger)&quot;; this.style.boxShadow=&quot;none&quot;' onmouseover='this.style.background=&quot;var(--danger)&quot;; this.style.color=&quot;#fff&quot;; this.style.boxShadow=&quot;0 0 15px rgba(239, 68, 68, 0.4)&quot;' style='background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 10px 20px; border-radius: 12px; cursor: pointer; transition: all 0.3s; font-weight: bold;'><i class='fa-solid fa-power-off'/> Sign Out</button>
+           <h2 style='font-size: 2rem;'><i class='fa-solid fa-circle-user'></i> Dashboard</h2>
+           <button id='nav-logout' onmouseout='this.style.background="transparent"; this.style.color="var(--danger)"; this.style.boxShadow="none"' onmouseover='this.style.background="var(--danger)"; this.style.color="#fff"; this.style.boxShadow="0 0 15px rgba(239, 68, 68, 0.4)"' style='background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 10px 20px; border-radius: 12px; cursor: pointer; transition: all 0.3s; font-weight: bold;'><i class='fa-solid fa-power-off'></i> Sign Out</button>
        </div>
        <hr style='border-color: var(--border-glass); margin: 25px 0;'/>
        
@@ -386,19 +386,19 @@
        </div>
 
        <div style='background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2)); border: 1px solid var(--primary); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 0 30px rgba(0, 242, 254, 0.1);'>
-           <h3 style='margin-bottom: 15px; font-size: 1.4rem;'><i class='fa-solid fa-coins' style='color: var(--warning); text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);'/> Available Credits</h3>
+           <h3 style='margin-bottom: 15px; font-size: 1.4rem;'><i class='fa-solid fa-coins' style='color: var(--warning); text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);'></i> Available Credits</h3>
            <div id='dash-credits' style='font-size: 4.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,255,255,0.3);'>0</div>
            <p style='color: var(--primary); font-size: 1rem; font-weight: bold;'>Cost per transfer: <span id='dash-cost-display'>50</span> Credits</p>
        </div>
 
-       <button class='submit-btn' id='btn-to-uploader' style='margin-top: 30px; font-size: 1.2rem; padding: 20px;'><i class='fa-solid fa-wand-magic-sparkles'/> Open Transfer Engine</button>
+       <button class='submit-btn' id='btn-to-uploader' style='margin-top: 30px; font-size: 1.2rem; padding: 20px;'><i class='fa-solid fa-wand-magic-sparkles'></i> Open Transfer Engine</button>
     </div>
 
     <div class='view glass-panel' id='view-app' style='max-width: 700px; margin: 0 auto;'>
-       <h2 style='font-size: 2.2rem; margin-bottom: 10px;'><i class='fa-solid fa-server'/> Transfer Engine</h2>
+       <h2 style='font-size: 2.2rem; margin-bottom: 10px;'><i class='fa-solid fa-server'></i> Transfer Engine</h2>
        <p class='mb-2 text-muted' style='font-size: 1.1rem;'>Select your secure upload method below.</p>
        
-       <div class='credit-tag'><i class='fa-solid fa-circle-info'/> Transfer Cost: <span id='tool-cost-display'>50</span> Credits</div>
+       <div class='credit-tag'><i class='fa-solid fa-circle-info'></i> Transfer Cost: <span id='tool-cost-display'>50</span> Credits</div>
        
        <div style='display: flex; gap: 15px; margin-bottom: 30px; padding: 8px; background: rgba(0,0,0,0.4); border-radius: 18px; flex-wrap: wrap;'>
           <button class='btn-glow' id='btn-mode-d2d' style='flex: 1 1 150px; border-radius: 14px; box-shadow: none; font-size: 1.1rem; padding: 12px;'>Cloud to Cloud</button>
@@ -407,11 +407,11 @@
 
        <div id='inputs-d2d' style='animation: slideUp 0.3s ease; width: 100%;'>
            <div class='form-group'>
-              <label><i class='fa-brands fa-google-drive'/> Source File/Folder Link</label>
+              <label><i class='fa-brands fa-google-drive'></i> Source File/Folder Link</label>
               <input id='app-source' placeholder='Paste the Google Drive link here...' type='text'/>
            </div>
            <div class='form-group'>
-              <label><i class='fa-solid fa-folder-open'/> Destination Folder Link (Optional)</label>
+              <label><i class='fa-solid fa-folder-open'></i> Destination Folder Link (Optional)</label>
               <input id='app-dest' placeholder='Leave blank to save to default root' type='text'/>
            </div>
        </div>
@@ -419,7 +419,7 @@
        <div class='hidden' id='inputs-local' style='animation: slideUp 0.3s ease; width: 100%;'>
            <div class='form-group'>
               <div class='drop-zone' id='drop-zone'>
-                  <i class='fa-solid fa-cloud-arrow-up'/>
+                  <i class='fa-solid fa-cloud-arrow-up'></i>
                   <p style='font-size: 1.2rem; margin-bottom: 10px;'><strong>Click to browse</strong> or drag file here</p>
                   <p style='color: var(--text-muted); font-size: 0.95rem;'>Maximum file size depends on network speed</p>
                   <input id='app-local-file' style='display: none;' type='file'/>
@@ -428,27 +428,27 @@
            </div>
        </div>
        
-       <button class='submit-btn' id='btn-transfer' style='margin-top: 15px; font-size: 1.2rem;'><i class='fa-solid fa-bolt'/> Initialize Transfer</button>
-       <div class='status-msg' id='app-status'/>
+       <button class='submit-btn' id='btn-transfer' style='margin-top: 15px; font-size: 1.2rem;'><i class='fa-solid fa-bolt'></i> Initialize Transfer</button>
+       <div class='status-msg' id='app-status'></div>
     </div>
 
     <div class='view' id='view-admin'>
        <div class='flex-between mb-2'>
-           <h2 style='color: var(--danger); font-size: 2.2rem; text-shadow: 0 0 15px rgba(239, 68, 68, 0.4);'><i class='fa-solid fa-shield-halved'/> Admin Control Center</h2>
-           <button class='btn-glow' id='btn-refresh-users' style='background: rgba(0,0,0,0.5); border: 1px solid var(--border-glass); color: #fff;'><i class='fa-solid fa-rotate'/> Refresh Database</button>
+           <h2 style='color: var(--danger); font-size: 2.2rem; text-shadow: 0 0 15px rgba(239, 68, 68, 0.4);'><i class='fa-solid fa-shield-halved'></i> Admin Control Center</h2>
+           <button class='btn-glow' id='btn-refresh-users' style='background: rgba(0,0,0,0.5); border: 1px solid var(--border-glass); color: #fff;'><i class='fa-solid fa-rotate'></i> Refresh Database</button>
        </div>
        
        <div class='admin-grid'>
           
           <div class='glass-panel' style='border: 1px solid var(--primary);'>
-             <h3 style='color: var(--primary); margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-palette'/> Global Theme Deployer</h3>
+             <h3 style='color: var(--primary); margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-palette'></i> Global Theme Deployer</h3>
              <p style='color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;'>Select a theme below. It will instantly deploy and change the color scheme and fluid background for all users globally.</p>
-             <div id='theme-buttons' style='display: flex; gap: 15px; flex-wrap: wrap; background: rgba(0,0,0,0.3); padding: 25px; border-radius: 16px;'/>
-             <div class='status-msg' id='admin-theme-status'/>
+             <div id='theme-buttons' style='display: flex; gap: 15px; flex-wrap: wrap; background: rgba(0,0,0,0.3); padding: 25px; border-radius: 16px;'></div>
+             <div class='status-msg' id='admin-theme-status'></div>
           </div>
 
           <div class='glass-panel' style='border: 1px solid var(--success);'>
-             <h3 style='color: var(--success); margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-tags'/> Global Pricing Engine</h3>
+             <h3 style='color: var(--success); margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-tags'></i> Global Pricing Engine</h3>
              <p style='color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;'>Set your prices in <strong>Base USD ($)</strong>. The frontend will automatically detect user countries and convert currencies in real-time.</p>
              
              <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; background: rgba(0,0,0,0.3); padding: 25px; border-radius: 16px;'>
@@ -481,20 +481,20 @@
                     <input id='admin-p-yr-ultra' placeholder='USD $ (Unlimited)' type='number'/>
                  </div>
              </div>
-             <button class='submit-btn' id='btn-admin-save-pricing' style='margin-top: 20px; background: linear-gradient(135deg, #10b981, #059669); color: #fff;'><i class='fa-solid fa-cloud-arrow-up'/> Deploy Global Prices</button>
-             <div class='status-msg' id='admin-pricing-status'/>
+             <button class='submit-btn' id='btn-admin-save-pricing' style='margin-top: 20px; background: linear-gradient(135deg, #10b981, #059669); color: #fff;'><i class='fa-solid fa-cloud-arrow-up'></i> Deploy Global Prices</button>
+             <div class='status-msg' id='admin-pricing-status'></div>
           </div>
 
           <div class='glass-panel'>
-             <h3 style='margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-user-pen'/> Manage Individual User</h3>
+             <h3 style='margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-user-pen'></i> Manage Individual User</h3>
              <div style='display: flex; gap: 15px; flex-wrap: wrap;'>
                  <input id='admin-search-email' placeholder='Enter user email address...' style='flex: 1 1 250px;' type='email'/>
-                 <button class='btn-glow' id='btn-admin-search' style='flex: 0 1 auto; padding: 0 30px;'><i class='fa-solid fa-magnifying-glass'/> Search</button>
+                 <button class='btn-glow' id='btn-admin-search' style='flex: 0 1 auto; padding: 0 30px;'><i class='fa-solid fa-magnifying-glass'></i> Search</button>
              </div>
-             <div class='status-msg' id='admin-search-status'/>
+             <div class='status-msg' id='admin-search-status'></div>
 
              <div class='hidden' id='admin-user-details' style='margin-top:25px; background: rgba(0,0,0,0.3); padding: 30px; border-radius: 20px; border: 1px solid var(--border-glass);'>
-                <p class='mb-2'>Editing User: <strong id='admin-editing-email' style='color:var(--primary); word-break: break-all; font-size: 1.1rem;'/></p>
+                <p class='mb-2'>Editing User: <strong id='admin-editing-email' style='color:var(--primary); word-break: break-all; font-size: 1.1rem;'></strong></p>
                 
                 <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;'>
                     <div class='form-group'>
@@ -523,13 +523,13 @@
                    <input id='admin-set-credits' placeholder='e.g. 500' type='number'/>
                 </div>
 
-                <button class='submit-btn' id='btn-admin-save' style='font-size: 1.1rem;'><i class='fa-solid fa-floppy-disk'/> Save User Updates</button>
-                <div class='status-msg' id='admin-save-status'/>
+                <button class='submit-btn' id='btn-admin-save' style='font-size: 1.1rem;'><i class='fa-solid fa-floppy-disk'></i> Save User Updates</button>
+                <div class='status-msg' id='admin-save-status'></div>
              </div>
           </div>
 
           <div class='glass-panel'>
-              <h3 style='margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-users'/> Registered User Directory</h3>
+              <h3 style='margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-users'></i> Registered User Directory</h3>
               <div class='table-container'>
                   <table>
                       <thead>
@@ -552,7 +552,6 @@
   </main>
 
   <script type='module'>
-  //<![CDATA[
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
     import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -571,7 +570,7 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwr3xntdhwGAlOx2Az7W74xvRd01q3fXxLAtgbB_ihnKK0mYb8Pt1s_tWk-tr1-n1Cp/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbylFWt10eA9JQjzz5mTqjCBs7SgcmbjlJqGGnlmDZ0TS6DfsL50ywwkFms32eZ7vq-v/exec";
     const ADMIN_EMAILS = ["farooq.hameed1311@gmail.com", "farooqhameedkhan2006@gmail.com"];
     
     // GLOBAL STATE
@@ -1123,16 +1122,6 @@
             tbody.innerHTML = "<tr><td colspan='5' class='text-center' style='color:var(--danger);'>Error loading database. Ensure Admin rules are active.</td></tr>";
         }
     }
-  //]]>
   </script>
-
-  <div style='display: none;'>
-    <b:section id='required-hidden-section' maxwidgets='1' showaddelement='no'>
-      <b:widget id='HTML99' locked='false' title='' type='HTML' version='2' visible='false'>
-        <b:includable id='main'/>
-      </b:widget>
-    </b:section>
-  </div>
-
 </body>
 </html>
