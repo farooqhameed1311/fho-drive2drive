@@ -1,0 +1,1138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <title><data:blog.title/></title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'/>
+  <b:skin><![CDATA[
+    /* ===== PREMIUM ROOT VARIABLES (Dynamic via JS) ===== */
+    :root {
+      --primary: #00f2fe;
+      --primary-glow: rgba(0, 242, 254, 0.5);
+      --secondary: #4facfe;
+      --dark-glass: rgba(10, 15, 30, 0.75);
+      --light-glass: rgba(255, 255, 255, 0.05);
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+    
+    /* ===== FLUID ANIMATED BACKGROUND ===== */
+    body {
+      background: linear-gradient(-45deg, #050b14, #0a192f, #112240, #020c1b);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.5s ease;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ===== PRELOADER ===== */
+    #app-loader {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: #050b14; z-index: 9999; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; transition: opacity 0.5s ease;
+    }
+    .spinner {
+      width: 50px; height: 50px; border: 4px solid var(--border-glass);
+      border-top: 4px solid var(--primary); border-radius: 50%;
+      animation: spin 1s linear infinite; margin-bottom: 20px;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* ===== ADVANCED GLASSMORPHISM ===== */
+    .glass-panel {
+      background: var(--dark-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+      padding: 35px;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.3s ease;
+    }
+    .glass-panel:hover {
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 30px var(--primary-glow);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ===== HEADER & NAV ===== */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 5%; background: rgba(0, 0, 0, 0.5); border-bottom: 1px solid var(--border-glass);
+      backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100;
+    }
+    .brand { display: flex; align-items: center; font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .brand img { height: 40px; margin-right: 12px; border-radius: 8px; filter: drop-shadow(0 0 8px var(--primary-glow)); }
+    
+    nav { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    nav button {
+      background: transparent; border: none; color: var(--text-muted); font-weight: 600;
+      cursor: pointer; transition: 0.3s; font-size: 0.95rem; padding: 8px 12px; border-radius: 8px;
+    }
+    nav button:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); background: rgba(255,255,255,0.05); }
+    
+    .btn-glow {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      padding: 10px 22px; border-radius: 12px; color: #000 !important; font-weight: 800;
+      box-shadow: 0 4px 15px var(--primary-glow); transition: all 0.3s ease; border: none; cursor: pointer;
+    }
+    .btn-glow:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 25px var(--primary-glow); color: #000 !important; }
+
+    main { padding: 40px 5%; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;}
+    .view { display: none; animation: slideFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0;}
+    .view.active { display: block; }
+    @keyframes slideFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== INPUTS & BUTTONS ===== */
+    .form-group { margin-bottom: 25px; text-align: left; width: 100%; }
+    label { display: block; margin-bottom: 10px; font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
+    input, select {
+      width: 100%; padding: 16px; background: var(--light-glass);
+      border: 1px solid var(--border-glass); border-radius: 14px; color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
+    }
+    input:focus, select:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 20px var(--primary-glow); }
+    
+    .submit-btn {
+      width: 100%; padding: 18px; border: none; border-radius: 14px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: #000; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: 0.3s;
+      display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 5px 15px var(--primary-glow);
+    }
+    .submit-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 30px var(--primary-glow); }
+    .submit-btn:disabled { background: #334155; cursor: not-allowed; opacity: 0.7; color: #94a3b8; box-shadow: none; transform: none;}
+
+    /* ===== DRAG & DROP ZONE ===== */
+    .drop-zone {
+      border: 2px dashed var(--border-glass); padding: 50px 20px; border-radius: 16px; 
+      background: rgba(0,0,0,0.3); text-align: center; cursor: pointer; transition: 0.3s;
+    }
+    .drop-zone.dragover, .drop-zone:hover { border-color: var(--primary); background: var(--light-glass); }
+    .drop-zone i { font-size: 3.5rem; color: var(--primary); margin-bottom: 15px; display: block; text-shadow: 0 0 15px var(--primary-glow);}
+
+    /* ===== DYNAMIC PRICING TABLES ===== */
+    .pricing-header { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;}
+    .currency-selector { background: rgba(0,0,0,0.4); border: 1px solid var(--primary); border-radius: 12px; padding: 10px 15px; color: var(--primary); font-weight: bold; outline: none; cursor: pointer;}
+    .pricing-toggle { display: flex; justify-content: center; gap: 10px; background: rgba(0,0,0,0.4); padding: 5px; border-radius: 30px; border: 1px solid var(--border-glass); flex-wrap: wrap;}
+    .pricing-toggle button { padding: 12px 24px; border-radius: 24px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; transition: 0.3s; font-weight: 700;}
+    .pricing-toggle button.active { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
+    
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+    .price-card { text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column;}
+    .price-card:hover { transform: translateY(-15px) scale(1.02); }
+    
+    .price-card.featured { border: 1px solid var(--primary); box-shadow: 0 0 30px var(--primary-glow); }
+    .price-card.featured::before { 
+        content: 'MOST POPULAR'; position: absolute; top: 18px; right: -40px; background: linear-gradient(90deg, var(--secondary), var(--primary)); 
+        color: #000; font-size: 0.75rem; font-weight: 900; padding: 6px 45px; transform: rotate(45deg); letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    .price-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+    .price { font-size: 3rem; font-weight: 900; margin: 20px 0; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.2);}
+    .price span { font-size: 1.1rem; color: var(--text-muted); font-weight: 600; }
+    
+    .price-card ul { list-style: none; margin-bottom: 30px; text-align: left; flex-grow: 1;}
+    .price-card ul li { margin-bottom: 16px; font-size: 1.05rem; display: flex; align-items: center; gap: 12px; color: #e2e8f0;}
+    .price-card ul li i { color: var(--primary); font-size: 1.2rem; filter: drop-shadow(0 0 5px var(--primary-glow));}
+    
+    .wa-btn { display: block; padding: 16px; border-radius: 14px; background: linear-gradient(135deg, #10b981, #059669); color: #fff; text-decoration: none; font-weight: 800; transition: 0.3s; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);}
+    .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4); }
+
+    /* ===== ADMIN PANEL & TABLES ===== */
+    .admin-grid { display: grid; grid-template-columns: 1fr; gap: 30px; width: 100%;}
+    .table-container { overflow-x: auto; margin-top: 20px; border-radius: 16px; border: 1px solid var(--border-glass); background: rgba(0,0,0,0.3); width: 100%;}
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; min-width: 600px; }
+    th { background: rgba(255,255,255,0.05); padding: 18px; font-weight: 700; color: var(--primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;}
+    td { padding: 18px; border-bottom: 1px solid var(--border-glass); }
+    tr:hover td { background: rgba(255, 255, 255, 0.05); }
+    
+    .badge { padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; display: inline-block; text-transform: uppercase;}
+    .badge.active { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);}
+    .badge.inactive { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);}
+
+    /* ===== PREMIUM NOTIFICATIONS (ALERTS) ===== */
+    .status-msg { 
+      margin-top: 20px; text-align: left; font-size: 1.05rem; font-weight: 600; 
+      padding: 16px 20px; border-radius: 12px; display: none; align-items: center; 
+      gap: 12px; animation: slideInAlert 0.4s cubic-bezier(0.16, 1, 0.3, 1); width: 100%;
+    }
+    .status-msg.show { display: flex; }
+    @keyframes slideInAlert { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* Global Floating Notification */
+    #global-alert {
+      position: fixed; top: 20px; right: 20px; z-index: 10000;
+      min-width: 300px; padding: 15px 20px; border-radius: 12px; font-weight: bold;
+      display: none; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: slideInRight 0.4s ease forwards;
+    }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* ===== USER MANUAL ACCORDION ===== */
+    .manual-step { background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); border-radius: 16px; margin-bottom: 15px; padding: 25px; transition: 0.3s; }
+    .manual-step:hover { border-color: var(--primary); background: rgba(0, 242, 254, 0.05); }
+    .manual-step h3 { color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 1.3rem;}
+    .manual-step p { color: var(--text-muted); line-height: 1.6; }
+
+    /* ===== UTILITIES & RESPONSIVE ===== */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mb-2 { margin-bottom: 20px; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;}
+    .credit-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.15); color: var(--warning); padding: 8px 18px; border-radius: 20px; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.9rem; font-weight: 800; margin-bottom: 25px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);}
+
+    @media (max-width: 768px) {
+       header { flex-direction: column; gap: 20px; padding: 20px 15px; text-align: center; }
+       .brand { flex-direction: column; font-size: 1.8rem; }
+       .brand img { margin-bottom: 10px; margin-right: 0; height: 50px; }
+       nav { justify-content: center; width: 100%; gap: 10px;}
+       nav button { flex: 1 1 auto; margin: 0; text-align: center; }
+       .glass-panel { padding: 25px; }
+       .pricing-header { flex-direction: column; gap: 15px; }
+       .flex-between { flex-direction: column; align-items: center; text-align: center; }
+       .admin-grid { grid-template-columns: 1fr; }
+    }
+  ]]></b:skin>
+</head>
+<body>
+
+  <div id='app-loader'>
+      <div class='spinner'/>
+      <h2 style='color: var(--primary); font-weight: 800; letter-spacing: 1px;'>Drive2Drive <span style='color: #fff;'>Pro</span></h2>
+      <p style='color: var(--text-muted); margin-top: 10px;'>Authenticating Secure Connection...</p>
+  </div>
+
+  <div id='global-alert'/>
+
+  <header>
+    <div class='brand'>
+        <img alt='Logo' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIRIJI6A8D3k5Evki0Jctw3CSuxtsUGRj5C9nRnlfXm8o73rDsF22A4ckSHj4y8-v8j7ISXaAVla2Whyphenhyphenz4YmKLYDXf2B2xngK0DCQxW71_9hr9gPSP_HSFVeBMJ7gw2EV-8FEoHEdto52hDBytcdp7TnzXGo2lkKvrSVWTHKGdZWOXvP_VncdJACNGV4WZ/s320/fho-drive-to-drive.png'/>
+        Drive2Drive Pro
+    </div>
+    <nav class='hidden' id='auth-nav'>
+       <button class='btn-glow' id='nav-login'><i class='fa-brands fa-google'/> Sign In</button>
+       <div class='hidden' id='user-nav'>
+          <button id='nav-app'><i class='fa-solid fa-cloud-arrow-up'/> Engine</button>
+          <button id='nav-pricing'><i class='fa-solid fa-tags'/> Pricing</button>
+          <button id='nav-manual'><i class='fa-solid fa-book-open'/> Guide</button>
+          <button class='hidden' id='nav-admin' style='color: var(--danger); text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); border: 1px solid var(--danger);'><i class='fa-solid fa-shield-halved'/> Admin</button>
+          <button class='btn-glow' id='nav-dashboard'><i class='fa-solid fa-user'/> Dashboard</button>
+       </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class='view glass-panel' id='view-login' style='max-width: 500px; margin: 8vh auto; text-align: center;'>
+       <div style='font-size: 4.5rem; color: var(--primary); margin-bottom: 25px; filter: drop-shadow(0 0 20px var(--primary-glow));'><i class='fa-solid fa-fingerprint'/></div>
+       <h2 style='font-size: 2.2rem; font-weight: 900; margin-bottom: 10px;'>Secure Access</h2>
+       <p class='mb-2 text-muted' style='font-size: 1.1rem;'>Enterprise-grade cloud and local data transfers.</p>
+       <div class='credit-tag' style='margin-top: 10px;'><i class='fa-solid fa-gift'/> 50 Free Credits on Signup!</div>
+       <button class='submit-btn' id='btn-main-login' style='margin-top: 15px;'><i class='fa-brands fa-google'/> Continue with Google</button>
+    </div>
+
+    <div class='view' id='view-manual'>
+       <div class='text-center mb-2'>
+           <h2 style='font-size: 3rem; font-weight: 900; text-shadow: 0 0 20px rgba(255,255,255,0.1);'>User Guide</h2>
+           <p style='color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; margin-bottom: 30px;'>Learn how to effectively use the transfer engine.</p>
+       </div>
+
+       <div class='glass-panel' style='max-width: 800px; margin: 0 auto;'>
+           <h3 style='margin-bottom: 20px; color: var(--text-main); font-size: 1.5rem;'><i class='fa-solid fa-cloud' style='color: var(--primary);'/> Cloud to Cloud Transfers</h3>
+           <div class='manual-step'>
+               <h3><span>1</span> Get the Source Link</h3>
+               <p>Go to your Google Drive, right-click the file or folder you want to transfer, click &quot;Share&quot;, and ensure General Access is set to <strong>&quot;Anyone with the link&quot;</strong>. Copy that link.</p>
+           </div>
+           <div class='manual-step'>
+               <h3><span>2</span> Set the Destination (Optional)</h3>
+               <p>If you want the file saved in a specific folder, get the share link for that target folder (ensure it is set to Editor). If you leave this blank, the file will be saved securely to our root server and a direct download link will be provided to you instantly.</p>
+           </div>
+
+           <h3 style='margin-top: 40px; margin-bottom: 20px; color: var(--text-main); font-size: 1.5rem;'><i class='fa-solid fa-laptop' style='color: var(--secondary);'/> Device Uploads</h3>
+           <div class='manual-step'>
+               <h3><span>1</span> Select Your File</h3>
+               <p>Toggle to the &quot;Device Upload&quot; tab in the engine. Click the upload zone to browse your computer or mobile device, or simply drag and drop the file into the box.</p>
+           </div>
+           <div class='manual-step'>
+               <h3><span>2</span> Wait for Encryption</h3>
+               <p>Our server will encrypt and upload the file using a secure Base64 stream. Please do not close the window while the transfer is processing. Once complete, you will receive a secure URL to access your file.</p>
+           </div>
+       </div>
+    </div>
+
+    <div class='view' id='view-pricing'>
+       <div class='text-center mb-2'>
+           <h2 style='font-size: 3rem; font-weight: 900; text-shadow: 0 0 20px rgba(255,255,255,0.1);'>Unlock Premium Power</h2>
+           <p style='color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; margin-bottom: 30px;'>Secure checkout via WhatsApp. Instant global activation.</p>
+       </div>
+       
+       <div class='pricing-header'>
+           <div class='pricing-toggle'>
+              <button class='active' id='btn-show-mo'>Monthly Billing</button>
+              <button id='btn-show-yr'>Yearly Billing (Save 20%)</button>
+           </div>
+           <select class='currency-selector' id='currency-select'>
+               <option value='USD'>USD ($)</option>
+               <option value='PKR'>PKR (&#8360;)</option>
+               <option value='EUR'>EUR (&#8364;)</option>
+               <option value='GBP'>GBP (&#163;)</option>
+               <option value='INR'>INR (&#8377;)</option>
+           </select>
+       </div>
+
+       <div class='pricing-grid' id='grid-monthly'>
+          <div class='glass-panel price-card'>
+             <h3>Basic</h3>
+             <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-mo-basic'>--</span><span>/mo</span></div>
+             <ul>
+                <li><i class='fa-solid fa-coins'/> <span id='cred-mo-basic'>--</span> Credits</li>
+               	<li><i class='fa-solid fa-recycle'/> 10 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'/> Standard Allocation</li>
+                <li><i class='fa-solid fa-gauge-high'/> Base Speed</li>
+             </ul>
+             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Monthly Basic&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+          </div>
+          <div class='glass-panel price-card featured'>
+             <h3 style='color: var(--primary);'>Pro</h3>
+             <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-mo-pro'>--</span><span>/mo</span></div>
+             <ul>
+                <li><i class='fa-solid fa-coins'/> <span id='cred-mo-pro'>--</span> Credits</li>
+               	<li><i class='fa-solid fa-recycle'/> 50 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'/> High Allocation</li>
+                <li><i class='fa-solid fa-rocket'/> Max Speed API</li>
+             </ul>
+             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Monthly Pro&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+          </div>
+          <div class='glass-panel price-card'>
+             <h3>Ultra</h3>
+             <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-mo-ultra'>--</span><span>/mo</span></div>
+             <ul>
+                <li><i class='fa-solid fa-infinity'/> Unlimited Credits</li>
+                <li><i class='fa-solid fa-infinity'/> Unlimited Transfers</li>
+                <li><i class='fa-solid fa-headset'/> Priority Support</li>
+             </ul>
+             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Monthly Ultra&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+          </div>
+       </div>
+
+       <div class='pricing-grid hidden' id='grid-yearly'>
+          <div class='glass-panel price-card'>
+             <h3>Yearly Basic</h3>
+             <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-yr-basic'>--</span><span>/yr</span></div>
+             <ul>
+                <li><i class='fa-solid fa-coins'/> <span id='cred-yr-basic'>--</span> Credits</li>
+               	<li><i class='fa-solid fa-recycle'/> 200 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'/> Standard Allocation</li>
+                <li><i class='fa-solid fa-gauge-high'/> Base Speed</li>
+             </ul>
+             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Yearly Basic&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+          </div>
+          <div class='glass-panel price-card featured'>
+             <h3 style='color: var(--primary);'>Yearly Pro</h3>
+             <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-yr-pro'>--</span><span>/yr</span></div>
+             <ul>
+                <li><i class='fa-solid fa-coins'/> <span id='cred-yr-pro'>--</span> Credits</li>
+               <li><i class='fa-solid fa-recycle'/> 600 Transfers</li>
+                <li><i class='fa-solid fa-exchange-alt'/> High Allocation</li>
+                <li><i class='fa-solid fa-rocket'/> Max Speed API</li>
+             </ul>
+             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Yearly Pro&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+          </div>
+          <div class='glass-panel price-card'>
+             <h3>Yearly Ultra</h3>
+             <div class='price'><span class='curr-sym'>$</span><span class='dyn-price' id='price-yr-ultra'>--</span><span>/yr</span></div>
+             <ul>
+                <li><i class='fa-solid fa-infinity'/> Unlimited Credits</li>
+                <li><i class='fa-solid fa-infinity'/> Unlimited Transfers</li>
+                <li><i class='fa-solid fa-crown'/> VIP Support</li>
+             </ul>
+             <a class='wa-btn text-center' href='#' onclick='checkout(&quot;Yearly Ultra&quot;)'><i class='fa-brands fa-whatsapp'/> Get Started</a>
+          </div>
+       </div>
+    </div>
+
+    <div class='view glass-panel' id='view-dashboard' style='max-width: 750px; margin: 0 auto;'>
+       <div class='flex-between mb-2'>
+           <h2 style='font-size: 2rem;'><i class='fa-solid fa-circle-user'/> Dashboard</h2>
+           <button id='nav-logout' onmouseout='this.style.background=&quot;transparent&quot;; this.style.color=&quot;var(--danger)&quot;; this.style.boxShadow=&quot;none&quot;' onmouseover='this.style.background=&quot;var(--danger)&quot;; this.style.color=&quot;#fff&quot;; this.style.boxShadow=&quot;0 0 15px rgba(239, 68, 68, 0.4)&quot;' style='background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 10px 20px; border-radius: 12px; cursor: pointer; transition: all 0.3s; font-weight: bold;'><i class='fa-solid fa-power-off'/> Sign Out</button>
+       </div>
+       <hr style='border-color: var(--border-glass); margin: 25px 0;'/>
+       
+       <div style='background: rgba(0,0,0,0.3); padding: 30px; border-radius: 20px; margin-bottom: 30px; border: 1px solid var(--border-glass);'>
+           <div class='flex-between' style='margin-bottom: 20px;'>
+               <span style='color: var(--text-muted); font-size: 1.1rem;'>Account Email</span>
+               <strong id='dash-email' style='font-size: 1.2rem; word-break: break-all;'>Loading...</strong>
+           </div>
+           <div class='flex-between' style='margin-bottom: 20px;'>
+               <span style='color: var(--text-muted); font-size: 1.1rem;'>Current Plan</span>
+               <strong id='dash-plan' style='color: var(--primary); font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px var(--primary-glow);'>Loading...</strong>
+           </div>
+           <div class='flex-between'>
+               <span style='color: var(--text-muted); font-size: 1.1rem;'>Account Status</span>
+               <span class='badge inactive' id='dash-status' style='font-size: 1rem; padding: 8px 18px;'>Loading...</span>
+           </div>
+       </div>
+
+       <div style='background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2)); border: 1px solid var(--primary); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 0 30px rgba(0, 242, 254, 0.1);'>
+           <h3 style='margin-bottom: 15px; font-size: 1.4rem;'><i class='fa-solid fa-coins' style='color: var(--warning); text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);'/> Available Credits</h3>
+           <div id='dash-credits' style='font-size: 4.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,255,255,0.3);'>0</div>
+           <p style='color: var(--primary); font-size: 1rem; font-weight: bold;'>Cost per transfer: <span id='dash-cost-display'>50</span> Credits</p>
+       </div>
+
+       <button class='submit-btn' id='btn-to-uploader' style='margin-top: 30px; font-size: 1.2rem; padding: 20px;'><i class='fa-solid fa-wand-magic-sparkles'/> Open Transfer Engine</button>
+    </div>
+
+    <div class='view glass-panel' id='view-app' style='max-width: 700px; margin: 0 auto;'>
+       <h2 style='font-size: 2.2rem; margin-bottom: 10px;'><i class='fa-solid fa-server'/> Transfer Engine</h2>
+       <p class='mb-2 text-muted' style='font-size: 1.1rem;'>Select your secure upload method below.</p>
+       
+       <div class='credit-tag'><i class='fa-solid fa-circle-info'/> Transfer Cost: <span id='tool-cost-display'>50</span> Credits</div>
+       
+       <div style='display: flex; gap: 15px; margin-bottom: 30px; padding: 8px; background: rgba(0,0,0,0.4); border-radius: 18px; flex-wrap: wrap;'>
+          <button class='btn-glow' id='btn-mode-d2d' style='flex: 1 1 150px; border-radius: 14px; box-shadow: none; font-size: 1.1rem; padding: 12px;'>Cloud to Cloud</button>
+          <button class='btn-glow' id='btn-mode-local' style='flex: 1 1 150px; border-radius: 14px; background: transparent; color: var(--text-muted) !important; box-shadow: none; font-size: 1.1rem; padding: 12px;'>Device Upload</button>
+       </div>
+
+       <div id='inputs-d2d' style='animation: slideUp 0.3s ease; width: 100%;'>
+           <div class='form-group'>
+              <label><i class='fa-brands fa-google-drive'/> Source File/Folder Link</label>
+              <input id='app-source' placeholder='Paste the Google Drive link here...' type='text'/>
+           </div>
+           <div class='form-group'>
+              <label><i class='fa-solid fa-folder-open'/> Destination Folder Link (Optional)</label>
+              <input id='app-dest' placeholder='Leave blank to save to default root' type='text'/>
+           </div>
+       </div>
+
+       <div class='hidden' id='inputs-local' style='animation: slideUp 0.3s ease; width: 100%;'>
+           <div class='form-group'>
+              <div class='drop-zone' id='drop-zone'>
+                  <i class='fa-solid fa-cloud-arrow-up'/>
+                  <p style='font-size: 1.2rem; margin-bottom: 10px;'><strong>Click to browse</strong> or drag file here</p>
+                  <p style='color: var(--text-muted); font-size: 0.95rem;'>Maximum file size depends on network speed</p>
+                  <input id='app-local-file' style='display: none;' type='file'/>
+              </div>
+              <div id='file-name-display' style='margin-top: 20px; color: var(--primary); font-size: 1.1rem; font-weight: 700; text-align: center;'>No file selected</div>
+           </div>
+       </div>
+       
+       <button class='submit-btn' id='btn-transfer' style='margin-top: 15px; font-size: 1.2rem;'><i class='fa-solid fa-bolt'/> Initialize Transfer</button>
+       <div class='status-msg' id='app-status'/>
+    </div>
+
+    <div class='view' id='view-admin'>
+       <div class='flex-between mb-2'>
+           <h2 style='color: var(--danger); font-size: 2.2rem; text-shadow: 0 0 15px rgba(239, 68, 68, 0.4);'><i class='fa-solid fa-shield-halved'/> Admin Control Center</h2>
+           <button class='btn-glow' id='btn-refresh-users' style='background: rgba(0,0,0,0.5); border: 1px solid var(--border-glass); color: #fff;'><i class='fa-solid fa-rotate'/> Refresh Database</button>
+       </div>
+       
+       <div class='admin-grid'>
+          
+          <div class='glass-panel' style='border: 1px solid var(--primary);'>
+             <h3 style='color: var(--primary); margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-palette'/> Global Theme Deployer</h3>
+             <p style='color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;'>Select a theme below. It will instantly deploy and change the color scheme and fluid background for all users globally.</p>
+             <div id='theme-buttons' style='display: flex; gap: 15px; flex-wrap: wrap; background: rgba(0,0,0,0.3); padding: 25px; border-radius: 16px;'/>
+             <div class='status-msg' id='admin-theme-status'/>
+          </div>
+
+          <div class='glass-panel' style='border: 1px solid var(--success);'>
+             <h3 style='color: var(--success); margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-tags'/> Global Pricing Engine</h3>
+             <p style='color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;'>Set your prices in <strong>Base USD ($)</strong>. The frontend will automatically detect user countries and convert currencies in real-time.</p>
+             
+             <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; background: rgba(0,0,0,0.3); padding: 25px; border-radius: 16px;'>
+                 <div class='form-group'>
+                    <label>Transfer Cost (Credits per transfer)</label>
+                    <input id='admin-set-cost' type='number'/>
+                 </div>
+                 <div class='form-group'>
+                    <label>Monthly Basic (USD Price / Credits)</label>
+                    <div style='display:flex; gap:10px;'><input id='admin-p-mo-basic' placeholder='USD $' type='number'/><input id='admin-c-mo-basic' placeholder='Credits' type='number'/></div>
+                 </div>
+                 <div class='form-group'>
+                    <label>Monthly Pro (USD Price / Credits)</label>
+                    <div style='display:flex; gap:10px;'><input id='admin-p-mo-pro' placeholder='USD $' type='number'/><input id='admin-c-mo-pro' placeholder='Credits' type='number'/></div>
+                 </div>
+                 <div class='form-group'>
+                    <label>Monthly Ultra (USD Price)</label>
+                    <input id='admin-p-mo-ultra' placeholder='USD $ (Unlimited)' type='number'/>
+                 </div>
+                 <div class='form-group'>
+                    <label>Yearly Basic (USD Price / Credits)</label>
+                    <div style='display:flex; gap:10px;'><input id='admin-p-yr-basic' placeholder='USD $' type='number'/><input id='admin-c-yr-basic' placeholder='Credits' type='number'/></div>
+                 </div>
+                 <div class='form-group'>
+                    <label>Yearly Pro (USD Price / Credits)</label>
+                    <div style='display:flex; gap:10px;'><input id='admin-p-yr-pro' placeholder='USD $' type='number'/><input id='admin-c-yr-pro' placeholder='Credits' type='number'/></div>
+                 </div>
+                 <div class='form-group'>
+                    <label>Yearly Ultra (USD Price)</label>
+                    <input id='admin-p-yr-ultra' placeholder='USD $ (Unlimited)' type='number'/>
+                 </div>
+             </div>
+             <button class='submit-btn' id='btn-admin-save-pricing' style='margin-top: 20px; background: linear-gradient(135deg, #10b981, #059669); color: #fff;'><i class='fa-solid fa-cloud-arrow-up'/> Deploy Global Prices</button>
+             <div class='status-msg' id='admin-pricing-status'/>
+          </div>
+
+          <div class='glass-panel'>
+             <h3 style='margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-user-pen'/> Manage Individual User</h3>
+             <div style='display: flex; gap: 15px; flex-wrap: wrap;'>
+                 <input id='admin-search-email' placeholder='Enter user email address...' style='flex: 1 1 250px;' type='email'/>
+                 <button class='btn-glow' id='btn-admin-search' style='flex: 0 1 auto; padding: 0 30px;'><i class='fa-solid fa-magnifying-glass'/> Search</button>
+             </div>
+             <div class='status-msg' id='admin-search-status'/>
+
+             <div class='hidden' id='admin-user-details' style='margin-top:25px; background: rgba(0,0,0,0.3); padding: 30px; border-radius: 20px; border: 1px solid var(--border-glass);'>
+                <p class='mb-2'>Editing User: <strong id='admin-editing-email' style='color:var(--primary); word-break: break-all; font-size: 1.1rem;'/></p>
+                
+                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;'>
+                    <div class='form-group'>
+                       <label>Plan Name</label>
+                       <select id='admin-set-plan'>
+                          <option value='None'>None</option>
+                          <option value='Free Tier'>Free Tier</option>
+                          <option value='Monthly Basic'>Monthly Basic</option>
+                          <option value='Monthly Pro'>Monthly Pro</option>
+                          <option value='Monthly Ultra'>Monthly Ultra</option>
+                          <option value='Yearly Basic'>Yearly Basic</option>
+                          <option value='Yearly Pro'>Yearly Pro</option>
+                          <option value='Yearly Ultra'>Yearly Ultra</option>
+                       </select>
+                    </div>
+                    <div class='form-group'>
+                       <label>Account Status</label>
+                       <select id='admin-set-status'>
+                          <option value='false'>Inactive</option>
+                          <option value='true'>Active</option>
+                       </select>
+                    </div>
+                </div>
+                <div class='form-group'>
+                   <label>Credit Balance (-1 for Unlimited)</label>
+                   <input id='admin-set-credits' placeholder='e.g. 500' type='number'/>
+                </div>
+
+                <button class='submit-btn' id='btn-admin-save' style='font-size: 1.1rem;'><i class='fa-solid fa-floppy-disk'/> Save User Updates</button>
+                <div class='status-msg' id='admin-save-status'/>
+             </div>
+          </div>
+
+          <div class='glass-panel'>
+              <h3 style='margin-bottom: 20px; font-size: 1.6rem;'><i class='fa-solid fa-users'/> Registered User Directory</h3>
+              <div class='table-container'>
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>Email</th>
+                              <th>Plan</th>
+                              <th>Status</th>
+                              <th>Credits</th>
+                              <th>Joined</th>
+                          </tr>
+                      </thead>
+                      <tbody id='admin-users-list'>
+                          <tr><td class='text-center' colspan='5'>Click refresh to load database...</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+       </div>
+    </div>
+  </main>
+
+  <script type='module'>
+  //<![CDATA[
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCRUV0bf2YRMag1ltpdQeBEldRUabkpjvk",
+      authDomain: "fho-drive-to-drive.firebaseapp.com",
+      projectId: "fho-drive-to-drive",
+      storageBucket: "fho-drive-to-drive.firebasestorage.app",
+      messagingSenderId: "136072446825",
+      appId: "1:136072446825:web:4ba7636a1cf50ac23173f8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwr3xntdhwGAlOx2Az7W74xvRd01q3fXxLAtgbB_ihnKK0mYb8Pt1s_tWk-tr1-n1Cp/exec";
+    const ADMIN_EMAILS = ["farooq.hameed1311@gmail.com", "farooqhameedkhan2006@gmail.com"];
+    
+    // GLOBAL STATE
+    let currentUser = null;
+    let userProfileData = null;
+    let adminEditingUserId = null;
+    let currentMode = "d2d"; 
+    
+    // --- UI NOTIFICATION ENGINE ---
+    function triggerGlobalAlert(message, type) {
+        const alertBox = document.getElementById('global-alert');
+        alertBox.innerHTML = message;
+        alertBox.style.display = 'flex';
+        
+        if(type === 'error') {
+            alertBox.style.background = 'var(--dark-glass)';
+            alertBox.style.borderLeft = '4px solid var(--danger)';
+            alertBox.style.color = 'var(--danger)';
+            alertBox.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ` + message;
+        } else if (type === 'success') {
+            alertBox.style.background = 'var(--dark-glass)';
+            alertBox.style.borderLeft = '4px solid var(--success)';
+            alertBox.style.color = 'var(--success)';
+            alertBox.innerHTML = `<i class="fa-solid fa-check-circle"></i> ` + message;
+        }
+        
+        // Auto hide after 4 seconds
+        setTimeout(() => {
+            alertBox.style.animation = 'slideInRight 0.4s ease reverse forwards';
+            setTimeout(() => { 
+                alertBox.style.display = 'none'; 
+                alertBox.style.animation = 'slideInRight 0.4s ease forwards'; // reset
+            }, 400);
+        }, 4000);
+    }
+
+    // Helper for Form-specific Alerts
+    function showStatus(el, msg, type) {
+        el.innerHTML = msg;
+        el.className = `status-msg show ${type}`;
+        if(type === 'success') { el.style.background = 'rgba(16, 185, 129, 0.15)'; el.style.color = 'var(--success)'; el.style.borderLeft = '4px solid var(--success)'; }
+        else if(type === 'error') { el.style.background = 'rgba(239, 68, 68, 0.15)'; el.style.color = 'var(--danger)'; el.style.borderLeft = '4px solid var(--danger)'; }
+        else { el.style.background = 'rgba(0, 242, 254, 0.15)'; el.style.color = 'var(--primary)'; el.style.borderLeft = '4px solid var(--primary)'; }
+    }
+
+    // --- PREMIUM THEMES ENGINE ---
+    const themes = {
+      ocean: { primary: '#00f2fe', secondary: '#4facfe', bg1: '#050b14', bg2: '#0a192f', bg3: '#112240', bg4: '#020c1b', name: 'Ocean Glass' },
+      neon: { primary: '#ff00ff', secondary: '#00ffff', bg1: '#090014', bg2: '#1a0033', bg3: '#330066', bg4: '#0a001a', name: 'Cyber Neon' },
+      ruby: { primary: '#ff4b2b', secondary: '#ff416c', bg1: '#140505', bg2: '#2f0a0a', bg3: '#401111', bg4: '#1b0202', name: 'Ruby Blood' },
+      emerald: { primary: '#00b09b', secondary: '#96c93d', bg1: '#05140b', bg2: '#0a2f15', bg3: '#11401f', bg4: '#021b08', name: 'Emerald Forest' },
+      sunset: { primary: '#f5af19', secondary: '#f12711', bg1: '#140a05', bg2: '#2f140a', bg3: '#401b11', bg4: '#1b0602', name: 'Sunset Orange' },
+      amethyst: { primary: '#a770ef', secondary: '#fdb99b', bg1: '#0c0514', bg2: '#180a2f', bg3: '#221140', bg4: '#05021b', name: 'Amethyst Purple' },
+      mocha: { primary: '#d4a373', secondary: '#8b5a2b', bg1: '#120c08', bg2: '#24160d', bg3: '#362215', bg4: '#0f0805', name: 'Dark Mocha' },
+      slate: { primary: '#94a3b8', secondary: '#475569', bg1: '#080a0f', bg2: '#0f172a', bg3: '#1e293b', bg4: '#020617', name: 'Slate Gray' },
+      hacker: { primary: '#0f0', secondary: '#003300', bg1: '#000000', bg2: '#051105', bg3: '#0a220a', bg4: '#000000', name: 'Hacker Terminal' },
+      gold: { primary: '#ffd700', secondary: '#ff8c00', bg1: '#141105', bg2: '#2f240a', bg3: '#403311', bg4: '#1b1602', name: 'Premium Gold' }
+    };
+
+    function applyTheme(themeKey) {
+        const t = themes[themeKey];
+        if(!t) return;
+        const root = document.documentElement;
+        root.style.setProperty('--primary', t.primary);
+        root.style.setProperty('--secondary', t.secondary);
+        root.style.setProperty('--primary-glow', t.primary + '66');
+        document.body.style.background = `linear-gradient(-45deg, ${t.bg1}, ${t.bg2}, ${t.bg3}, ${t.bg4})`;
+        document.body.style.backgroundSize = '400% 400%';
+    }
+
+    const themeBox = document.getElementById('theme-buttons');
+    Object.keys(themes).forEach(key => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-glow';
+        btn.style.background = `linear-gradient(135deg, ${themes[key].secondary}, ${themes[key].primary})`;
+        btn.style.flex = '1 1 120px'; btn.style.padding = '12px'; btn.style.fontSize = '0.9rem'; btn.style.boxShadow = 'none';
+        btn.innerHTML = `<i class="fa-solid fa-droplet"></i> ${themes[key].name}`;
+        btn.onclick = async () => {
+             applyTheme(key);
+             await setDoc(doc(db, "settings", "theme"), { activeTheme: key });
+             showStatus(document.getElementById('admin-theme-status'), `<i class="fa-solid fa-check"></i> Theme [${themes[key].name}] deployed globally!`, 'success');
+        };
+        themeBox.appendChild(btn);
+    });
+
+    // DEFAULT PRICING STATE
+    let platformSettings = {
+        costPerTransfer: 50,
+        prices: { moBasic: 5, moPro: 10, moUltra: 25, yrBasic: 45, yrPro: 90, yrUltra: 200 },
+        credits: { moBasic: 500, moPro: 2500, yrBasic: 6000, yrPro: 30000 }
+    };
+    
+    let exchangeRates = { USD: 1 }; 
+    let currentCurrency = 'USD';
+    let currencySymbols = { USD: '$', PKR: '₨', EUR: '€', GBP: '£', INR: '₹' };
+
+    // --- 1. INITIALIZE PLATFORM SETTINGS & CURRENCY ---
+    async function initPlatform() {
+        try {
+            const themeSnap = await getDoc(doc(db, "settings", "theme"));
+            if (themeSnap.exists() && themeSnap.data().activeTheme) applyTheme(themeSnap.data().activeTheme);
+
+            const settingsSnap = await getDoc(doc(db, "settings", "pricing"));
+            if (settingsSnap.exists()) platformSettings = settingsSnap.data();
+            else try { await setDoc(doc(db, "settings", "pricing"), platformSettings); } catch(e){}
+            
+            const res = await fetch("https://open.er-api.com/v6/latest/USD");
+            const data = await res.json();
+            exchangeRates = data.rates;
+            
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            if(tz.includes("Karachi") || tz.includes("Pakistan")) currentCurrency = "PKR";
+            else if(tz.includes("Kolkata") || tz.includes("India")) currentCurrency = "INR";
+            else if(tz.includes("Europe")) currentCurrency = "EUR";
+            else if(tz.includes("London")) currentCurrency = "GBP";
+            
+            document.getElementById('currency-select').value = currentCurrency;
+            updatePricingUI();
+        } catch (error) {
+            console.error("Initialization error:", error);
+            updatePricingUI(); 
+        }
+    }
+
+    function updatePricingUI() {
+        const rate = exchangeRates[currentCurrency] || 1;
+        const sym = currencySymbols[currentCurrency] || currentCurrency;
+        
+        document.querySelectorAll('.curr-sym').forEach(el => el.innerText = sym);
+        const convert = (usd) => (usd * rate).toLocaleString(undefined, {maximumFractionDigits: 0});
+        
+        document.getElementById('price-mo-basic').innerText = convert(platformSettings.prices.moBasic);
+        document.getElementById('price-mo-pro').innerText = convert(platformSettings.prices.moPro);
+        document.getElementById('price-mo-ultra').innerText = convert(platformSettings.prices.moUltra);
+        document.getElementById('price-yr-basic').innerText = convert(platformSettings.prices.yrBasic);
+        document.getElementById('price-yr-pro').innerText = convert(platformSettings.prices.yrPro);
+        document.getElementById('price-yr-ultra').innerText = convert(platformSettings.prices.yrUltra);
+
+        document.getElementById('cred-mo-basic').innerText = platformSettings.credits.moBasic.toLocaleString();
+        document.getElementById('cred-mo-pro').innerText = platformSettings.credits.moPro.toLocaleString();
+        document.getElementById('cred-yr-basic').innerText = platformSettings.credits.yrBasic.toLocaleString();
+        document.getElementById('cred-yr-pro').innerText = platformSettings.credits.yrPro.toLocaleString();
+        
+        document.getElementById('dash-cost-display').innerText = platformSettings.costPerTransfer;
+        document.getElementById('tool-cost-display').innerText = platformSettings.costPerTransfer;
+
+        document.getElementById('admin-set-cost').value = platformSettings.costPerTransfer;
+        document.getElementById('admin-p-mo-basic').value = platformSettings.prices.moBasic;
+        document.getElementById('admin-c-mo-basic').value = platformSettings.credits.moBasic;
+        document.getElementById('admin-p-mo-pro').value = platformSettings.prices.moPro;
+        document.getElementById('admin-c-mo-pro').value = platformSettings.credits.moPro;
+        document.getElementById('admin-p-mo-ultra').value = platformSettings.prices.moUltra;
+        
+        document.getElementById('admin-p-yr-basic').value = platformSettings.prices.yrBasic;
+        document.getElementById('admin-c-yr-basic').value = platformSettings.credits.yrBasic;
+        document.getElementById('admin-p-yr-pro').value = platformSettings.prices.yrPro;
+        document.getElementById('admin-c-yr-pro').value = platformSettings.credits.yrPro;
+        document.getElementById('admin-p-yr-ultra').value = platformSettings.prices.yrUltra;
+    }
+
+    document.getElementById('currency-select').addEventListener('change', (e) => {
+        currentCurrency = e.target.value;
+        updatePricingUI();
+    });
+
+    // --- 2. ROUTING & UI VIEWS ---
+    const views = ['view-login', 'view-pricing', 'view-dashboard', 'view-app', 'view-admin', 'view-manual'];
+    function showView(viewId) {
+       views.forEach(v => document.getElementById(v).classList.remove('active'));
+       document.getElementById(viewId).classList.add('active');
+       document.querySelectorAll('.status-msg').forEach(el => el.classList.remove('show')); 
+    }
+
+    document.getElementById('nav-dashboard').addEventListener('click', () => showView('view-dashboard'));
+    document.getElementById('nav-pricing').addEventListener('click', () => showView('view-pricing'));
+    document.getElementById('nav-manual').addEventListener('click', () => showView('view-manual'));
+    
+    document.getElementById('nav-app').addEventListener('click', () => {
+        if(userProfileData && (userProfileData.credits >= platformSettings.costPerTransfer || userProfileData.credits === -1)) {
+            showView('view-app');
+        } else {
+            triggerGlobalAlert(`Insufficient credits. You need ${platformSettings.costPerTransfer} credits to open the tool.`, 'error');
+            showView('view-pricing');
+        }
+    });
+    
+    document.getElementById('btn-to-uploader').addEventListener('click', () => document.getElementById('nav-app').click());
+    document.getElementById('nav-admin').addEventListener('click', () => { showView('view-admin'); fetchAllUsers(); });
+
+    // --- 3. AUTHENTICATION & INITIAL ROUTING ---
+    async function handleLogin() {
+       try { await signInWithPopup(auth, provider); } 
+       catch (error) { triggerGlobalAlert("Authentication Failed", "error"); }
+    }
+    document.getElementById('nav-login').addEventListener('click', handleLogin);
+    document.getElementById('btn-main-login').addEventListener('click', handleLogin);
+    document.getElementById('nav-logout').addEventListener('click', () => signOut(auth));
+
+    onAuthStateChanged(auth, async (user) => {
+       await initPlatform(); 
+       
+       const loader = document.getElementById('app-loader');
+       loader.style.opacity = "0";
+       setTimeout(() => loader.style.display = "none", 500);
+
+       if (user) {
+          currentUser = user;
+          document.getElementById('auth-nav').classList.remove('hidden');
+          document.getElementById('nav-login').classList.add('hidden');
+          document.getElementById('user-nav').classList.remove('hidden');
+          
+          if (ADMIN_EMAILS.includes(user.email)) {
+             document.getElementById('nav-admin').classList.remove('hidden');
+          }
+
+          const userRef = doc(db, "users", user.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (!userSnap.exists()) {
+             userProfileData = {
+                email: user.email,
+                name: user.displayName,
+                plan: "Free Tier",
+                isActive: true,
+                credits: 50, 
+                createdAt: new Date().toISOString()
+             };
+             await setDoc(userRef, userProfileData);
+             triggerGlobalAlert("Welcome! 50 Free Credits have been added to your account.", "success");
+          } else {
+             userProfileData = userSnap.data();
+          }
+
+          document.getElementById('dash-email').innerText = user.email;
+          document.getElementById('dash-plan').innerText = userProfileData.plan;
+          
+          const statusEl = document.getElementById('dash-status');
+          if (userProfileData.isActive) {
+              statusEl.innerText = "Active";
+              statusEl.className = "badge active";
+          } else {
+              statusEl.innerText = "Suspended";
+              statusEl.className = "badge inactive";
+          }
+
+          document.getElementById('dash-credits').innerText = userProfileData.credits === -1 ? "∞" : userProfileData.credits;
+          showView('view-dashboard');
+       } else {
+          currentUser = null;
+          userProfileData = null;
+          document.getElementById('auth-nav').classList.remove('hidden');
+          document.getElementById('nav-login').classList.remove('hidden');
+          document.getElementById('user-nav').classList.add('hidden');
+          document.getElementById('nav-admin').classList.add('hidden');
+          showView('view-login');
+       }
+    });
+
+    // --- 4. PRICING & CHECKOUT ---
+    document.getElementById('btn-show-mo').addEventListener('click', (e) => {
+        e.target.classList.add('active');
+        document.getElementById('btn-show-yr').classList.remove('active');
+        document.getElementById('grid-monthly').classList.remove('hidden');
+        document.getElementById('grid-yearly').classList.add('hidden');
+    });
+    document.getElementById('btn-show-yr').addEventListener('click', (e) => {
+        e.target.classList.add('active');
+        document.getElementById('btn-show-mo').classList.remove('active');
+        document.getElementById('grid-yearly').classList.remove('hidden');
+        document.getElementById('grid-monthly').classList.add('hidden');
+    });
+
+    window.checkout = function(planName) {
+       if(!currentUser) { 
+           triggerGlobalAlert("Please Sign In first to link your account.", "error"); 
+           showView('view-login'); 
+           return; 
+       }
+       
+       let planKey = "";
+       if(planName === "Monthly Basic") planKey = "moBasic"; else if(planName === "Monthly Pro") planKey = "moPro"; else if(planName === "Monthly Ultra") planKey = "moUltra";
+       else if(planName === "Yearly Basic") planKey = "yrBasic"; else if(planName === "Yearly Pro") planKey = "yrPro"; else if(planName === "Yearly Ultra") planKey = "yrUltra";
+       
+       const baseUSD = platformSettings.prices[planKey];
+       const localPrice = (baseUSD * exchangeRates[currentCurrency]).toLocaleString(undefined, {maximumFractionDigits:0});
+       const sym = currencySymbols[currentCurrency] || currentCurrency;
+
+       const phone = "923359334348";
+       const text = `Hello Farooq! I want to upgrade to the Drive2Drive [${planName}]. The price shown is ${sym}${localPrice}. My account email is: ${currentUser.email}. How do I proceed with payment?`;
+       const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+       window.open(url, '_blank');
+    };
+
+    // --- 5. TRANSFER ENGINE LOGIC ---
+    const btnD2D = document.getElementById('btn-mode-d2d');
+    const btnLocal = document.getElementById('btn-mode-local');
+    const inputsD2D = document.getElementById('inputs-d2d');
+    const inputsLocal = document.getElementById('inputs-local');
+
+    btnD2D.addEventListener('click', () => {
+        currentMode = "d2d";
+        btnD2D.style.background = "linear-gradient(135deg, var(--secondary), var(--primary))";
+        btnD2D.style.color = "#020c1b";
+        btnLocal.style.background = "transparent";
+        btnLocal.style.color = "var(--text-muted)";
+        inputsD2D.classList.remove('hidden');
+        inputsLocal.classList.add('hidden');
+    });
+
+    btnLocal.addEventListener('click', () => {
+        currentMode = "local";
+        btnLocal.style.background = "linear-gradient(135deg, var(--secondary), var(--primary))";
+        btnLocal.style.color = "#020c1b";
+        btnD2D.style.background = "transparent";
+        btnD2D.style.color = "var(--text-muted)";
+        inputsLocal.classList.remove('hidden');
+        inputsD2D.classList.add('hidden');
+    });
+
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('app-local-file');
+    const fileDisplay = document.getElementById('file-name-display');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            fileDisplay.innerHTML = `<i class="fa-solid fa-file-circle-check"></i> ${e.dataTransfer.files[0].name}`;
+        }
+    });
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length) {
+            fileDisplay.innerHTML = `<i class="fa-solid fa-file-circle-check"></i> ${fileInput.files[0].name}`;
+        }
+    });
+
+    document.getElementById('btn-transfer').addEventListener('click', async () => {
+       const status = document.getElementById('app-status');
+       const btn = document.getElementById('btn-transfer');
+       const cost = platformSettings.costPerTransfer;
+       
+       if (userProfileData.credits !== -1 && userProfileData.credits < cost) {
+           showStatus(status, `<i class="fa-solid fa-circle-exclamation"></i> Insufficient Credits. You need ${cost} credits.`, 'error');
+           return;
+       }
+
+       let payload = {};
+
+       if (currentMode === "d2d") {
+           const source = document.getElementById('app-source').value;
+           const dest = document.getElementById('app-dest').value;
+           if (!source) { showStatus(status, "<i class='fa-solid fa-xmark'></i> Source link is required.", "error"); return; }
+           
+           payload = { uploadType: "d2d", sourceFileId: source, destFolderId: dest };
+           executeTransfer(payload, status, btn, cost);
+
+       } else if (currentMode === "local") {
+           if (!fileInput.files || fileInput.files.length === 0) {
+               showStatus(status, "<i class='fa-solid fa-xmark'></i> Please select a file to upload.", "error");
+               return;
+           }
+
+           const file = fileInput.files[0];
+           btn.disabled = true;
+           btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Encrypting...`;
+           showStatus(status, `<i class="fa-solid fa-spinner fa-spin"></i> Preparing ${file.name} for secure upload...`, 'info');
+
+           const reader = new FileReader();
+           reader.onload = function(e) {
+               const base64Data = e.target.result.split(',')[1]; 
+               payload = { uploadType: "local", fileName: file.name, mimeType: file.type || "application/octet-stream", base64Data: base64Data };
+               executeTransfer(payload, status, btn, cost);
+           };
+           reader.readAsDataURL(file);
+       }
+    });
+
+    async function executeTransfer(payload, statusElement, btnElement, cost) {
+       showStatus(statusElement, `<i class="fa-solid fa-spinner fa-spin"></i> Connecting to cloud servers...`, 'info');
+       btnElement.disabled = true;
+       btnElement.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
+
+       try {
+          const response = await fetch(GAS_URL, {
+             redirect: "follow",
+             method: 'POST',
+             headers: { "Content-Type": "text/plain;charset=utf-8" },
+             body: JSON.stringify(payload)
+          });
+          const result = await response.json();
+          
+          if(result.success) {
+             if (result.fileUrl) {
+                 showStatus(statusElement, `<i class="fa-solid fa-check-circle"></i> Success! <a href="${result.fileUrl}" target="_blank" style="color: var(--success); text-decoration: underline; margin-left:5px;">Click here to view your file</a>`, 'success');
+             } else {
+                 showStatus(statusElement, `<i class="fa-solid fa-check-circle"></i> Success! Transfer completed perfectly.`, 'success');
+             }
+             
+             document.getElementById('app-source').value = '';
+             document.getElementById('app-local-file').value = '';
+             document.getElementById('file-name-display').innerText = "No file selected";
+             
+             if (userProfileData.credits !== -1) {
+                 userProfileData.credits -= cost;
+                 await updateDoc(doc(db, "users", currentUser.uid), { credits: userProfileData.credits });
+                 document.getElementById('dash-credits').innerText = userProfileData.credits;
+             }
+          } else {
+             showStatus(statusElement, `<i class="fa-solid fa-circle-exclamation"></i> Error: ${result.error}`, 'error');
+          }
+       } catch(e) {
+          showStatus(statusElement, `<i class="fa-solid fa-triangle-exclamation"></i> Network Error. Please check connection.`, 'error');
+       } finally {
+          btnElement.disabled = false;
+          btnElement.innerHTML = `<i class="fa-solid fa-bolt"></i> Initialize Transfer`;
+       }
+    }
+
+    // --- 6. ADMIN CONTROLS ---
+    
+    document.getElementById('btn-admin-save-pricing').addEventListener('click', async () => {
+        const btn = document.getElementById('btn-admin-save-pricing');
+        const status = document.getElementById('admin-pricing-status');
+        btn.disabled = true; btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+        
+        try {
+            const newSettings = {
+                costPerTransfer: parseInt(document.getElementById('admin-set-cost').value) || 50,
+                prices: {
+                    moBasic: parseInt(document.getElementById('admin-p-mo-basic').value),
+                    moPro: parseInt(document.getElementById('admin-p-mo-pro').value),
+                    moUltra: parseInt(document.getElementById('admin-p-mo-ultra').value),
+                    yrBasic: parseInt(document.getElementById('admin-p-yr-basic').value),
+                    yrPro: parseInt(document.getElementById('admin-p-yr-pro').value),
+                    yrUltra: parseInt(document.getElementById('admin-p-yr-ultra').value)
+                },
+                credits: {
+                    moBasic: parseInt(document.getElementById('admin-c-mo-basic').value),
+                    moPro: parseInt(document.getElementById('admin-c-mo-pro').value),
+                    yrBasic: parseInt(document.getElementById('admin-c-yr-basic').value),
+                    yrPro: parseInt(document.getElementById('admin-c-yr-pro').value)
+                }
+            };
+            
+            await setDoc(doc(db, "settings", "pricing"), newSettings);
+            platformSettings = newSettings;
+            updatePricingUI(); 
+            
+            showStatus(status, `<i class="fa-solid fa-check"></i> Global Pricing Successfully Updated!`, 'success');
+            setTimeout(() => status.classList.remove('show'), 4000);
+        } catch(e) {
+            showStatus(status, `<i class="fa-solid fa-xmark"></i> Failed to update pricing.`, 'error');
+        } finally {
+            btn.disabled = false; btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Deploy Global Prices`;
+        }
+    });
+
+    document.getElementById('btn-admin-search').addEventListener('click', async () => {
+       const emailToSearch = document.getElementById('admin-search-email').value.trim();
+       const status = document.getElementById('admin-search-status');
+       
+       if(!emailToSearch) return;
+       showStatus(status, `<i class="fa-solid fa-spinner fa-spin"></i> Searching database...`, 'info');
+
+       try {
+          const q = query(collection(db, "users"), where("email", "==", emailToSearch));
+          const querySnapshot = await getDocs(q);
+          
+          if (querySnapshot.empty) {
+              showStatus(status, `<i class="fa-solid fa-user-xmark"></i> User not found.`, 'error');
+              document.getElementById('admin-user-details').classList.add('hidden');
+          } else {
+              status.classList.remove('show');
+              const userDoc = querySnapshot.docs[0];
+              adminEditingUserId = userDoc.id;
+              const data = userDoc.data();
+
+              document.getElementById('admin-editing-email').innerText = data.email;
+              document.getElementById('admin-set-plan').value = data.plan || "None";
+              document.getElementById('admin-set-status').value = data.isActive === true ? "true" : "false";
+              document.getElementById('admin-set-credits').value = data.credits || 0;
+
+              document.getElementById('admin-user-details').classList.remove('hidden');
+          }
+       } catch(e) {
+          showStatus(status, `<i class="fa-solid fa-bug"></i> Search Error.`, 'error');
+       }
+    });
+
+    document.getElementById('btn-admin-save').addEventListener('click', async () => {
+       const status = document.getElementById('admin-save-status');
+       if(!adminEditingUserId) return;
+       
+       showStatus(status, `<i class="fa-solid fa-spinner fa-spin"></i> Saving changes...`, 'info');
+
+       const newPlan = document.getElementById('admin-set-plan').value;
+       const newIsActive = document.getElementById('admin-set-status').value === "true";
+       const newCredits = parseInt(document.getElementById('admin-set-credits').value);
+
+       try {
+          await updateDoc(doc(db, "users", adminEditingUserId), {
+             plan: newPlan,
+             isActive: newIsActive,
+             credits: newCredits
+          });
+          showStatus(status, `<i class="fa-solid fa-check"></i> Account updated successfully!`, 'success');
+          fetchAllUsers(); 
+          setTimeout(() => status.classList.remove('show'), 4000);
+       } catch(e) {
+          showStatus(status, `<i class="fa-solid fa-xmark"></i> Failed to update.`, 'error');
+       }
+    });
+
+    async function fetchAllUsers() {
+        const tbody = document.getElementById('admin-users-list');
+        tbody.innerHTML = "<tr><td colspan='5' class='text-center'><i class='fa-solid fa-spinner fa-spin'></i> Loading Database...</td></tr>";
+        
+        try {
+            const q = query(collection(db, "users"));
+            const snapshot = await getDocs(q);
+            
+            if(snapshot.empty) {
+                tbody.innerHTML = "<tr><td colspan='5' class='text-center'>No users found.</td></tr>";
+                return;
+            }
+
+            tbody.innerHTML = "";
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const statusBadge = data.isActive ? "<span class='badge active'>Active</span>" : "<span class='badge inactive'>Inactive</span>";
+                const creditsDisplay = data.credits === -1 ? "∞" : data.credits;
+                const joinedDate = data.createdAt ? new Date(data.createdAt).toLocaleDateString() : "N/A";
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${data.email}</strong></td>
+                    <td style="color:var(--primary); font-weight: 700;">${data.plan}</td>
+                    <td>${statusBadge}</td>
+                    <td><i class="fa-solid fa-coins" style="color:var(--warning); font-size:0.8rem; margin-right:5px;"></i> <strong>${creditsDisplay}</strong></td>
+                    <td style="color:var(--text-muted); font-size:0.85rem;">${joinedDate}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } catch (error) {
+            tbody.innerHTML = "<tr><td colspan='5' class='text-center' style='color:var(--danger);'>Error loading database. Ensure Admin rules are active.</td></tr>";
+        }
+    }
+  //]]>
+  </script>
+
+  <div style='display: none;'>
+    <b:section id='required-hidden-section' maxwidgets='1' showaddelement='no'>
+      <b:widget id='HTML99' locked='false' title='' type='HTML' version='2' visible='false'>
+        <b:includable id='main'/>
+      </b:widget>
+    </b:section>
+  </div>
+
+</body>
+</html>
